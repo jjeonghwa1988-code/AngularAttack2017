@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
   hello = 'hello testing';
   profilepic = '';
 
-  title = 'NgWarriors | Image Parlour!';
+  title = 'NgWarriors | Photo Parlour!';
 
 
   constructor(private fb: FacebookService) {

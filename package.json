@@ -43,5 +43,11 @@
     "ts-node": "~2.0.0",
     "tslint": "~4.5.0",
     "typescript": "~2.2.0"
-  }
+  },
+  "contributors": [
+    {
+      "name": "Md. Zahirul Haque",
+      "email": "zahirul.arb@gmail.com"
+    }
+  ]
 }
