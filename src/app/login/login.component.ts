@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FacebookService, InitParams, LoginResponse, UIParams, UIResponse } from 'ngx-facebook';
+// import * as Caman from "Caman";
+
+declare var Caman: any;
+
 export class User {
   id: number;
   name: string;
@@ -13,6 +17,7 @@ export class User {
 export class LoginComponent implements OnInit {
   hello = 'hello testing';
   profilepic = '';
+
 
   constructor(private fb: FacebookService) {
   	let initParams: InitParams = {
@@ -51,6 +56,10 @@ export class LoginComponent implements OnInit {
 	      this.profilepic = res.picture.data.url;
 	      this.hello = 'new hello';
 
+        // Caman("#canvas-id", function() {
+        //   this.brightness(5).render();
+        // });
+
 
 	    });
 	  console.log(response);
@@ -58,5 +67,19 @@ export class LoginComponent implements OnInit {
 	});
 
   }
+
+  changeColor() {
+   Caman("#canvas-id", function() {
+          this.brightness(20);
+          this.render(function(){
+            this.save('hello.png');
+            console.log(this)
+          });
+        });
+  
+    alert('applied')
+  }
+
+  // Caman("#canvas-id", function() {});
 
 }
