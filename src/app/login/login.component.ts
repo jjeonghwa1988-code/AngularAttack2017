@@ -3,6 +3,7 @@ import { FacebookService, InitParams, LoginResponse, UIParams, UIResponse } from
 // import * as Caman from "Caman";
 
 declare var Caman: any;
+Caman.remoteProxy = Caman.IO.useProxy('http://hellosofts.com/caman_proxy.php');
 
 export class User {
   id: number;
@@ -57,7 +58,9 @@ export class LoginComponent implements OnInit {
 	      this.hello = 'new hello';
 
         // Caman("#canvas-id", function() {
-        //   this.brightness(5).render();
+        //   this.brightness(5).render(function() {
+        //     console.log(this.toBase64());
+        //   });
         // });
 
 
@@ -69,6 +72,15 @@ export class LoginComponent implements OnInit {
   }
 
   
+  SaveImage() {
+    Caman("#canvas", function() {
+          //console.log(this.toBase64());
+        let a  = document.createElement('a');
+            a.href = this.toBase64();
+            a.download = Date() +'_image.png';
+            a.click();
+        });
+  }
 
   changeColor() {
    let c = Caman("#canvas", function() {
@@ -78,7 +90,7 @@ export class LoginComponent implements OnInit {
           this.saturation(-30);
           this.render(function() {
             //console.log(this.toBase64());
-            this.save('assets/hello.jpg');
+            //this.save('assets/hello.jpg');
           });
 
         });
@@ -86,6 +98,27 @@ export class LoginComponent implements OnInit {
    console.log(c.renderer.c);
   
     alert('applied')
+  }
+
+  PreviewImage(event) {
+    var canvas: HTMLCanvasElement;
+    var ctx: CanvasRenderingContext2D;
+     canvas = <HTMLCanvasElement>document.getElementById('canvas');
+     ctx = canvas.getContext("2d");
+
+     let img2 = new Image();
+     img2.crossOrigin = '';
+     img2.src = "assets/test.jpg";
+
+    let uploadFile = (<HTMLInputElement>window.document.getElementById('browseFile')).value;
+
+    console.log(uploadFile);
+    // let fileList: FileList = event.target.files;
+    // if (fileList.length > 0) {
+    //   let file: File = fileList[0];
+    //   let url = URL.createObjectURL(file)
+    //   console.log(file);
+    // }
   }
 
   drawImage() {
@@ -96,7 +129,8 @@ export class LoginComponent implements OnInit {
 
      let img2 = new Image();
      img2.crossOrigin = '';
-     img2.src = "assets/test.jpg";
+     img2.src = "https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/koala.jpg";
+     ctx.drawImage(img2, 0, 0, 500, 500);
 
      //console.log(hello);
 
@@ -124,6 +158,130 @@ export class LoginComponent implements OnInit {
 
   }
 
-  // Caman("#canvas-id", function() {});
+  ApplyFilter(ev) {
+    // let hue = parseInt(document.getElementById('#hue'));
+    let hue = document.getElementById('#hue');
+    console.log('changing filter', ev);
+  }
+
+  ResetImage() {
+    Caman("#canvas", function() {
+          this.revert(true).render();
+        });
+  }
+
+  Brightness() {
+    Caman("#canvas", function() {
+          this.brightness(10).render();
+        });
+  }
+
+  Noise() {
+    Caman("#canvas", function() {
+          this.noise(10).render();
+        });
+  }
+
+  Sepia() {
+    Caman("#canvas", function() {
+          this.sepia(10).render();
+        });
+  }
+
+  Contrast() {
+    Caman("#canvas", function() {
+          this.contrast(10).render();
+        });
+  }
+
+  Colorize() {
+    Caman("#canvas", function() {
+          this.colorize(60, 105, 218, 10).render();
+        });
+  }
+
+  Vintage() {
+    Caman("#canvas", function() {
+          this.vintage().render();
+        });
+  }
+  Lomo() {
+    Caman("#canvas", function() {
+          this.lomo().render();
+        });
+  }
+  Emboss() {
+    Caman("#canvas", function() {
+          this.emboss().render();
+        });
+  }
+  TiltShift() {
+    Caman("#canvas", function() {
+          this.tiltShift({
+            angle: 90,
+            focusWidth: 600
+          }).render();
+        });
+  }
+
+  RadialBlur() {
+    Caman("#canvas", function() {
+          this.radialBlur().render();
+        });
+  }
+
+  EdgeEnhance() {
+    Caman("#canvas", function() {
+          this.edgeEnhance().render();
+        });
+  }
+
+  Posterize() {
+    Caman("#canvas", function() {
+          this.posterize(8, 8).render();
+        });
+  }
+
+  Clarity() {
+    Caman("#canvas", function() {
+          this.clarity().render();
+        });
+  }
+
+  OrangePeel() {
+    Caman("#canvas", function() {
+          this.orangePeel().render();
+        });
+  }
+
+  SinCity() {
+    Caman("#canvas", function() {
+          this.sinCity().render();
+        });
+  }
+
+  SunRise() {
+    Caman("#canvas", function() {
+          this.sunrise().render();
+        });
+  }
+
+  CrossProcess() {
+    Caman("#canvas", function() {
+          this.crossProcess().render();
+        });
+  }
+
+
+  HdrEffect() {
+    Caman("#canvas", function() {
+          this.contrast(10);
+          this.contrast(10);
+          this.jarques();
+          this.render();
+        });
+  }
+
+
 
 }
